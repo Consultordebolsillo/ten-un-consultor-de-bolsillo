@@ -1,447 +1,353 @@
 <!doctype html>
-<html lang="es">
+<html lang="es-MX">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#171817">
-<meta name="description" content="Consultor de Bolsillo">
-<title>Consultor de Bolsillo</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600&display=swap" rel="stylesheet">
-<style>
-
-:root {
-  font-family: "Montserrat", sans-serif;
-  color: #171817;
-  background: #171817;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  --ink: #171817;
-  --ink-soft: #242624;
-  --cream: #f1eee6;
-  --cream-deep: #dfdbcf;
-  --lime: #c7f63b;
-  --lime-soft: #dbff76;
-  --muted: #817f77;
-  --line-light: rgba(23, 24, 23, 0.15);
-  --line-dark: rgba(241, 238, 230, 0.2);
-  --shell: min(1180px, calc(100% - 64px));
-}
-
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { margin: 0; min-width: 320px; background: var(--ink); }
-a { color: inherit; }
-button, a { -webkit-tap-highlight-color: transparent; }
-
-.landing-page { overflow: hidden; }
-.shell { width: var(--shell); margin: 0 auto; }
-.section-dark { background: var(--ink); color: var(--cream); }
-.section-cream { background: var(--cream); color: var(--ink); }
-.section-lime { background: var(--lime); color: var(--ink); }
-
-.site-header {
-  position: absolute; z-index: 10; top: 0; left: 0; width: 100%;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 26px 32px; color: var(--cream); mix-blend-mode: normal;
-}
-.wordmark { display: inline-flex; align-items: flex-start; gap: 10px; text-decoration: none; text-transform: uppercase; font-size: 10px; line-height: 1.08; letter-spacing: 0.14em; font-weight: 600; }
-.wordmark b { color: var(--lime); font-weight: 700; }
-.wordmark-dot { width: 10px; height: 10px; margin-top: 1px; background: var(--lime); border-radius: 50%; box-shadow: 0 0 0 4px rgba(199,246,59,0.16); }
-.header-note { color: rgba(241,238,230,0.57); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; }
-
-.section-kicker { margin: 0 0 28px; font-size: 10px; line-height: 1.4; letter-spacing: 0.17em; text-transform: uppercase; font-weight: 700; }
-.section-dark .section-kicker { color: var(--lime); }
-.section-cream .section-kicker { color: #74726c; }
-.section-lime .section-kicker { color: rgba(23,24,23,0.62); }
-h1, h2, p { margin-top: 0; }
-h1, h2 { font-weight: 600; letter-spacing: -0.065em; }
-p { font-size: 15px; line-height: 1.7; }
-
-.hero { min-height: 820px; padding: 152px 0 96px; position: relative; }
-.hero::after { content: ""; position: absolute; width: 430px; height: 430px; right: -200px; top: 175px; border: 1px solid rgba(199,246,59,0.1); border-radius: 50%; box-shadow: 0 0 0 46px rgba(199,246,59,0.02), 0 0 0 92px rgba(199,246,59,0.018); pointer-events: none; }
-.hero-grid { display: grid; grid-template-columns: minmax(0, 1.06fr) minmax(400px, 0.94fr); gap: 68px; align-items: center; position: relative; z-index: 1; }
-.hero-copy { max-width: 650px; }
-.hero h1 { max-width: 620px; margin-bottom: 20px; font-size: clamp(48px, 6.3vw, 88px); line-height: 0.95; }
-.hero h2 { max-width: 650px; margin-bottom: 34px; color: var(--lime); font-size: clamp(23px, 2.5vw, 38px); line-height: 1.08; }
-.hero-rule { width: 70px; height: 1px; margin: 0 0 27px; background: var(--lime); }
-.hero-copy > p { max-width: 455px; color: rgba(241,238,230,0.68); }
-.hero-copy > p + p { margin-top: -7px; }
-.hero-questions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 26px; margin: 27px 0 34px; padding: 20px 0; border-top: 1px solid var(--line-dark); border-bottom: 1px solid var(--line-dark); }
-.hero-questions p { margin: 0; padding: 7px 0; color: rgba(241,238,230,0.68); font-size: 13px; line-height: 1.4; }
-.hero-emphasis { color: var(--cream) !important; font-weight: 700; }
-.hero-side { padding-top: 30px; }
-.hero-support { margin: 28px 4px 29px; color: rgba(241,238,230,0.66); font-size: 13px; line-height: 1.65; }
-.hero-buy { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-top: 23px; border-top: 1px solid var(--line-dark); }
-.hero-buy strong, .membership-buy strong, .closing-buy strong { font-size: 25px; font-weight: 600; letter-spacing: -0.045em; }
-
-.checkout-button { display: inline-flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 52px; padding: 14px 17px 14px 20px; color: var(--ink); background: var(--lime); border: 1px solid var(--lime); text-decoration: none; font-size: 10px; line-height: 1.2; letter-spacing: 0.1em; font-weight: 800; transition: transform 180ms cubic-bezier(0.23,1,0.32,1), background-color 180ms ease, color 180ms ease; }
-.checkout-button:hover { background: var(--lime-soft); transform: translateY(-2px); }
-.checkout-button:focus-visible { outline: 3px solid var(--cream); outline-offset: 4px; }
-.checkout-button:active { transform: scale(0.97); }
-.checkout-button svg { flex: 0 0 auto; }
-.checkout-button--inverted { color: var(--ink); background: var(--cream); border-color: var(--cream); }
-.checkout-button--inverted:hover { background: white; }
-
-.mockup { width: 100%; max-width: 490px; margin-left: auto; background: #202320; border: 1px solid rgba(241,238,230,0.24); box-shadow: 22px 28px 0 rgba(0,0,0,0.18), 0 16px 70px rgba(0,0,0,0.22); }
-.mockup-topbar, .mockup-bottom { display: flex; align-items: center; justify-content: space-between; padding: 15px 18px; color: rgba(241,238,230,0.58); font-size: 9px; line-height: 1; text-transform: uppercase; letter-spacing: 0.14em; }
-.mockup-topbar { border-bottom: 1px solid rgba(241,238,230,0.12); }
-.mockup-brandmark { display: flex; align-items: end; gap: 2px; width: 14px; height: 12px; }
-.mockup-brandmark span { width: 3px; background: var(--lime); }
-.mockup-brandmark span:nth-child(1) { height: 5px; }.mockup-brandmark span:nth-child(2) { height: 9px; }.mockup-brandmark span:nth-child(3) { height: 12px; }
-.mockup-status { color: var(--lime); font-size: 10px; }
-.mockup-body { padding: 28px 30px 32px; }
-.mockup-intro span, .mockup-label { color: var(--lime); font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; }
-.mockup-intro p { margin: 9px 0 30px; color: var(--cream); font-size: 28px; line-height: 1; letter-spacing: -0.06em; font-weight: 600; }
-.mockup-question { display: flex; gap: 16px; padding: 19px 0; border-top: 1px solid rgba(241,238,230,0.16); border-bottom: 1px solid rgba(241,238,230,0.16); }
-.mockup-index { color: var(--lime); font-size: 10px; font-weight: 700; }
-.mockup-question p { margin: 0; color: var(--cream); font-size: 14px; line-height: 1.45; }
-.mockup-analysis, .mockup-tool { display: flex; gap: 15px; margin-top: 25px; }
-.analysis-line { width: 1px; margin-left: 4px; background: var(--lime); }
-.mockup-analysis strong, .mockup-tool strong { display: block; margin-top: 7px; color: var(--cream); font-size: 16px; line-height: 1.25; letter-spacing: -0.04em; font-weight: 600; }
-.mockup-tool { align-items: center; margin-top: 26px; padding: 14px; background: rgba(199,246,59,0.1); }
-.tool-arrow { display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; color: var(--ink); background: var(--lime); }
-.mockup-bottom { border-top: 1px solid rgba(241,238,230,0.12); }
-.mockup-progress { display: flex; gap: 4px; }.mockup-progress i { display: block; width: 18px; height: 2px; background: rgba(241,238,230,0.25); }.mockup-progress i:first-child { background: var(--lime); }
-
-.direction { padding: 145px 0 152px; }
-.direction-grid { display: grid; grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.1fr); gap: 100px; }
-.direction-heading h2, .not-course-heading h2, .membership-heading h2, .guarantee-grid h2, .closing h2 { margin-bottom: 22px; font-size: clamp(42px, 5.2vw, 72px); line-height: 0.97; }
-.display-subhead { max-width: 540px; margin-bottom: 0; font-size: clamp(21px, 2.2vw, 30px); line-height: 1.13; letter-spacing: -0.045em; }
-.direction-content { padding-top: 48px; }
-.direction-content > p { max-width: 590px; color: #65635d; }
-.large-italic { margin: 33px 0 34px; font-size: 29px; line-height: 1.1; letter-spacing: -0.045em; }
-.large-italic strong { font-style: italic; }
-.decision-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line-light); }
-.decision-list span { padding: 13px 12px 13px 0; border-bottom: 1px solid var(--line-light); font-size: 13px; line-height: 1.3; }
-.closing-line { margin: 38px 0 29px; color: #65635d; }
-.pull-quote { margin: 0; font-size: clamp(23px, 2.6vw, 34px); line-height: 1.08; letter-spacing: -0.05em; font-weight: 600; }
-
-.consult { padding: 146px 0 152px; }
-.consult-heading { max-width: 780px; margin-bottom: 82px; }
-.consult-heading h2, .criterion-heading h2 { margin: 0; font-size: clamp(43px, 5.5vw, 78px); line-height: 0.94; }
-.consult-grid { display: grid; grid-template-columns: minmax(240px, 0.72fr) minmax(0, 1.28fr); gap: 120px; }
-.consult-context > p { max-width: 300px; color: rgba(241,238,230,0.86); font-size: 18px; line-height: 1.3; letter-spacing: -0.04em; }
-.context-list { margin: 36px 0 34px; border-top: 1px solid var(--line-dark); }
-.context-list span { display: block; padding: 12px 0; border-bottom: 1px solid var(--line-dark); color: rgba(241,238,230,0.62); font-size: 13px; }
-.muted-copy { max-width: 280px; color: rgba(241,238,230,0.45) !important; font-size: 13px !important; }
-.question-stack { padding-left: 30px; border-left: 1px solid rgba(199,246,59,0.44); }
-.question-stack > p { margin-bottom: 29px; color: var(--lime); font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 700; }
-.question-stack blockquote { margin: 0; padding: 18px 0; border-bottom: 1px solid var(--line-dark); color: var(--cream); font-size: clamp(19px, 2.2vw, 28px); line-height: 1.15; letter-spacing: -0.04em; }
-.consult-footer { max-width: 820px; margin: 90px 0 0 auto; padding-top: 28px; border-top: 1px solid var(--line-dark); color: rgba(241,238,230,0.64); font-size: 16px; }
-
-.criterion { padding: 145px 0 140px; }
-.criterion-heading { max-width: 940px; margin-bottom: 68px; }
-.criterion-intro { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 86px; max-width: 1040px; }
-.criterion-intro p { font-size: 16px; line-height: 1.55; }.criterion-intro strong { font-weight: 700; }
-.criterion-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; margin: 90px 0 70px; padding: 30px 0 0; border-top: 1px solid rgba(23,24,23,0.28); }
-.criterion-columns p { margin: 0 0 11px; font-size: 17px; line-height: 1.35; letter-spacing: -0.02em; }
-.criterion-highlight { padding-left: 29px; border-left: 1px solid rgba(23,24,23,0.42); }
-.criterion-highlight p:first-child { font-size: 29px; line-height: 1.07; }
-.technology-note { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; padding: 27px 0; border-top: 1px solid rgba(23,24,23,0.28); border-bottom: 1px solid rgba(23,24,23,0.28); }
-.technology-note p { margin: 0; font-size: 15px; }.technology-note p:last-child { font-style: italic; }
-.recommendation { max-width: 1040px; margin-top: 73px; }.recommendation > p:first-child { color: rgba(23,24,23,0.58); font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 700; }
-.recommendation > p:nth-child(2) { max-width: 800px; margin: 18px 0 47px; font-size: clamp(27px, 3.3vw, 46px); line-height: 1.03; letter-spacing: -0.06em; }
-.no-commission-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }.no-commission-grid span { padding-top: 15px; border-top: 1px solid rgba(23,24,23,0.28); font-size: 12px; line-height: 1.4; }.recommendation-end { max-width: 600px; margin: 54px 0 0 auto; font-size: 17px; line-height: 1.4; font-weight: 600; }
-
-.not-course { padding: 145px 0 0; }.not-course-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 118px; padding-bottom: 140px; }.not-course-heading { padding-top: 2px; }.not-course-body > p { max-width: 540px; margin-bottom: 8px; color: #65635d; }.not-course-body .body-lead { margin: 40px 0 30px; color: var(--ink); font-size: 21px; line-height: 1.18; letter-spacing: -0.04em; font-weight: 600; }.not-course-body .dark-quote { margin-top: 34px; color: var(--ink); }
-.course-contrast { padding: 120px 0 135px; color: var(--cream); background: var(--ink); }.course-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 110px; }.course-grid p { max-width: 380px; color: rgba(241,238,230,0.62); }.cream-quote { margin: 35px 0 0; color: var(--lime); }.timeline { border-top: 1px solid var(--line-dark); }.timeline div { display: grid; grid-template-columns: 110px 1fr; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--line-dark); }.timeline span { color: var(--lime); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 700; }.timeline strong { font-size: 22px; line-height: 1.12; letter-spacing: -0.04em; font-weight: 500; }.course-bottom { margin-top: 100px; }.course-bottom p { color: rgba(241,238,230,0.63); }.course-bottom .cream-quote { max-width: 540px; margin: 32px 0; }.course-bottom .large-final { max-width: 820px; margin-top: 36px; color: var(--cream); font-size: clamp(28px, 4vw, 54px); line-height: 1.02; letter-spacing: -0.06em; font-weight: 600; }
-
-.membership { padding: 145px 0 125px; }.membership-grid { display: grid; grid-template-columns: 0.92fr 1.08fr; gap: 130px; }.membership-heading .display-subhead { color: rgba(241,238,230,0.67); }.eyebrow-light { margin: 0 0 27px; color: var(--lime); font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 700; }.include-item { display: grid; grid-template-columns: 25px 1fr; gap: 18px; padding: 20px 0; border-top: 1px solid var(--line-dark); }.include-item svg { color: var(--lime); margin-top: 3px; }.include-item strong { display: block; margin-bottom: 7px; font-size: 20px; line-height: 1.1; letter-spacing: -0.04em; font-weight: 600; }.include-item p { margin: 0; color: rgba(241,238,230,0.55); font-size: 13px; line-height: 1.45; }.membership-buy { display: flex; align-items: flex-end; justify-content: space-between; gap: 25px; margin-top: 85px; padding-top: 25px; border-top: 1px solid var(--line-dark); }.membership-buy p { margin: 4px 0 0; color: rgba(241,238,230,0.52); font-size: 12px; line-height: 1.3; }
-
-.guarantee { padding: 145px 0 135px; }.guarantee-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 130px; }.guarantee-steps { padding-top: 50px; }.guarantee-steps p { margin: 0; padding: 14px 0; border-bottom: 1px solid var(--line-light); font-size: 20px; line-height: 1.2; letter-spacing: -0.04em; }.guarantee-callout { display: grid; grid-template-columns: 66px 1.2fr 1fr 0.8fr; gap: 28px; align-items: start; margin-top: 88px; padding: 28px 0; border-top: 1px solid var(--line-light); border-bottom: 1px solid var(--line-light); }.guarantee-callout p { margin: 0; font-size: 13px; line-height: 1.45; }.guarantee-callout p strong { font-size: 18px; line-height: 1.15; letter-spacing: -0.04em; }.guarantee-mark { display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; color: var(--ink); background: var(--lime); }.guarantee-price { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 53px; }.guarantee-price > strong { font-size: 23px; letter-spacing: -0.04em; }.guarantee-price > strong:nth-child(2) { max-width: 240px; font-size: 14px; line-height: 1.25; }
-
-.closing { padding: 150px 0 128px; position: relative; }.closing::before { content: ""; position: absolute; top: 0; right: 0; width: 48%; height: 1px; background: var(--lime); }.closing-inner { max-width: 900px; }.closing h2 { margin-bottom: 18px; }.closing .display-subhead { color: var(--lime); }.closing-copy { max-width: 650px; margin: 80px 0 0 auto; }.closing-copy p { color: rgba(241,238,230,0.63); }.closing-copy .pull-quote { max-width: 620px; margin: 35px 0; color: var(--cream); }.closing-copy .closing-final { color: var(--cream); font-size: clamp(26px, 3.5vw, 47px); line-height: 1.02; letter-spacing: -0.06em; font-weight: 600; }.closing-buy { display: flex; align-items: center; justify-content: flex-end; gap: 32px; margin-top: 74px; padding-top: 25px; border-top: 1px solid var(--line-dark); }.site-footer { padding: 20px 0 24px; border-top: 1px solid var(--line-dark); }.site-footer .shell { display: flex; justify-content: space-between; color: rgba(241,238,230,0.37); font-size: 9px; text-transform: uppercase; letter-spacing: 0.14em; }
-
-@media (max-width: 900px) {
-  :root { --shell: min(100% - 42px, 720px); }
-  .site-header { padding: 22px 21px; }.header-note { display: none; }
-  .hero { padding-top: 130px; }.hero-grid, .direction-grid, .consult-grid, .criterion-intro, .criterion-columns, .not-course-grid, .course-grid, .membership-grid, .guarantee-grid { grid-template-columns: 1fr; gap: 54px; }
-  .hero-side { padding-top: 10px; }.mockup { margin: 0; max-width: none; }.direction, .consult, .criterion, .not-course, .membership, .guarantee, .closing { padding-top: 100px; }.consult-heading { margin-bottom: 55px; }.question-stack { padding-left: 20px; }.criterion-columns { margin: 55px 0 50px; gap: 35px; }.technology-note { gap: 35px; }.recommendation { margin-top: 55px; }.not-course-grid { padding-bottom: 95px; }.course-bottom { margin-top: 68px; }.membership-buy { margin-top: 58px; }.guarantee-steps { padding-top: 0; }.guarantee-callout { grid-template-columns: 48px 1fr 1fr; }.guarantee-mark { grid-row: span 2; }.guarantee-callout p:last-child { grid-column: 2 / -1; }.closing-copy { margin-top: 54px; }.closing-buy { justify-content: flex-start; }
-}
-
-@media (max-width: 560px) {
-  :root { --shell: calc(100% - 34px); }
-  p { font-size: 14px; }.hero { padding-bottom: 72px; }.hero h1 { font-size: 49px; }.hero h2 { font-size: 28px; }.hero-questions { grid-template-columns: 1fr; }.hero-buy, .membership-buy, .guarantee-price, .closing-buy { align-items: flex-start; flex-direction: column; }.hero-buy strong, .membership-buy strong, .closing-buy strong { font-size: 24px; }.checkout-button { width: 100%; }.direction-heading h2, .not-course-heading h2, .membership-heading h2, .guarantee-grid h2, .closing h2 { font-size: 48px; }.direction { padding-bottom: 95px; }.direction-content { padding-top: 0; }.decision-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }.decision-list span { padding-right: 10px; }.consult-heading h2, .criterion-heading h2 { font-size: 49px; }.consult-grid { gap: 45px; }.question-stack blockquote { font-size: 21px; }.criterion-intro, .criterion-columns, .technology-note { grid-template-columns: 1fr; gap: 30px; }.criterion-highlight { padding: 25px 0 0; border-left: 0; border-top: 1px solid rgba(23,24,23,0.42); }.no-commission-grid { grid-template-columns: repeat(2, 1fr); }.course-contrast { padding-top: 85px; }.timeline div { grid-template-columns: 88px 1fr; gap: 12px; }.timeline strong { font-size: 18px; }.guarantee-callout { grid-template-columns: 44px 1fr; gap: 18px; }.guarantee-callout p:nth-child(3), .guarantee-callout p:nth-child(4) { grid-column: 2; }.guarantee-price > strong:nth-child(2) { max-width: none; }.closing { padding-bottom: 85px; }.site-footer .shell { display: block; }.site-footer .shell span { display: block; margin: 5px 0; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
-}
-
-.checkout-button .arrow{font-size:18px;line-height:1}.include-item .check{color:var(--lime);font-size:20px;margin-top:1px}.tool-arrow{font-size:17px}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Consultor de Bolsillo | Decisiones claras para tu negocio</title>
+  <meta name="description" content="Un consultor que conoce la dirección de tu negocio y te ayuda a decidir qué hacer y cómo llevarlo a la práctica.">
+  <meta name="theme-color" content="#101511">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23101511'/%3E%3Crect x='9' y='9' width='46' height='46' rx='4' fill='none' stroke='%23BFFF5B' stroke-width='4'/%3E%3Cpath d='M22 32h20M32 22v20' stroke='%23F4F1E8' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --ink: #101511;
+      --panel: #151c16;
+      --panel-2: #1d2819;
+      --cream: #f4f1e8;
+      --muted: #aab5a8;
+      --line: #354136;
+      --lime: #bfff5b;
+      --lime-dark: #0e160b;
+      --max: 1180px;
+      --pad: clamp(22px, 5vw, 72px);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--ink);
+      color: var(--cream);
+      font-family: "Montserrat", Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    .shell { width: min(100%, calc(var(--max) + (var(--pad) * 2))); margin: 0 auto; padding-inline: var(--pad); }
+    .eyebrow { color: var(--lime); text-transform: uppercase; letter-spacing: .12em; font-size: .74rem; font-weight: 700; }
+    .topbar { height: 72px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
+    .brand { display: flex; align-items: center; gap: 10px; font-size: .78rem; font-weight: 700; letter-spacing: .02em; }
+    .brandmark { width: 24px; height: 24px; border: 1px solid var(--lime); display: grid; place-items: center; color: var(--lime); font-size: .65rem; }
+    .topnote { color: var(--muted); font-size: .72rem; text-transform: uppercase; letter-spacing: .11em; }
+    .hero { min-height: calc(100vh - 72px); display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(42px, 7vw, 96px); align-items: center; padding-block: clamp(64px, 10vw, 132px); }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { max-width: 760px; font-size: clamp(2.8rem, 6.1vw, 5.6rem); line-height: .98; letter-spacing: -.055em; font-weight: 500; margin-bottom: 32px; }
+    h2 { font-size: clamp(2rem, 4vw, 4rem); line-height: 1.05; letter-spacing: -.045em; font-weight: 500; margin-bottom: 30px; max-width: 900px; }
+    h3 { font-size: clamp(1.2rem, 2vw, 1.65rem); line-height: 1.25; letter-spacing: -.025em; }
+    .accent { color: var(--lime); }
+    .hero-copy > p { color: #d6dbd2; max-width: 660px; font-size: clamp(1rem, 1.4vw, 1.18rem); }
+    .questions { margin: 28px 0 34px; display: grid; gap: 3px; color: var(--cream); font-weight: 500; }
+    .hero-claim { font-size: clamp(1.15rem, 1.7vw, 1.4rem) !important; font-weight: 700; color: var(--cream) !important; }
+    .buyrow { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; margin-top: 34px; }
+    .price { font-size: 1.22rem; font-weight: 700; white-space: nowrap; }
+    .cta { display: inline-flex; justify-content: center; align-items: center; gap: 14px; min-height: 58px; padding: 16px 24px; background: var(--lime); color: var(--lime-dark); text-decoration: none; font-weight: 700; font-size: .82rem; letter-spacing: .01em; border: 1px solid var(--lime); transition: transform .18s ease, background .18s ease; }
+    .cta:hover { transform: translateY(-2px); background: #caff79; }
+    .cta:focus-visible { outline: 3px solid var(--cream); outline-offset: 4px; }
+    .cta::after { content: "→"; font-size: 1.2rem; }
+    .mockup { position: relative; padding: 26px; background: var(--panel); border: 1px solid var(--line); box-shadow: 22px 22px 0 #0b0f0c; }
+    .mockup::before { content: "CONSULTOR DE BOLSILLO"; display: block; padding-bottom: 18px; border-bottom: 1px solid var(--line); color: var(--lime); font-size: .68rem; letter-spacing: .12em; font-weight: 700; }
+    .mock-question { margin: 28px 0 18px; font-size: clamp(1.35rem, 2vw, 1.9rem); line-height: 1.22; font-weight: 500; }
+    .mock-grid { display: grid; gap: 10px; }
+    .mock-step { border: 1px solid var(--line); padding: 16px; display: grid; grid-template-columns: 30px 1fr; gap: 12px; background: #121813; }
+    .mock-step.active { border-color: #79a743; background: var(--panel-2); }
+    .num { color: var(--lime); font-size: .7rem; font-weight: 700; padding-top: 2px; }
+    .mock-step b { display: block; font-size: .76rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 4px; }
+    .mock-step span:last-child { color: #c7d0c3; font-size: .82rem; line-height: 1.45; }
+    .section { padding-block: clamp(86px, 11vw, 150px); border-top: 1px solid var(--line); }
+    .lead { font-size: clamp(1.15rem, 1.8vw, 1.45rem); max-width: 840px; color: #d6dbd2; }
+    .decision-cloud { margin-top: 60px; display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+    .decision-cloud span { padding: 22px; min-height: 82px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); display: flex; align-items: center; font-size: clamp(1rem, 1.4vw, 1.18rem); }
+    .statement { margin-top: 48px; font-size: clamp(1.4rem, 2.4vw, 2.05rem); line-height: 1.3; max-width: 920px; font-weight: 600; }
+    .split { display: grid; grid-template-columns: .85fr 1.15fr; gap: clamp(46px, 8vw, 120px); align-items: start; }
+    .context-list { list-style: none; margin: 30px 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0 28px; }
+    .context-list li { padding: 14px 0; border-bottom: 1px solid var(--line); color: #d9ddd6; }
+    .quote-list { display: grid; gap: 12px; }
+    .quote { padding: 22px 24px; border: 1px solid var(--line); background: var(--panel); font-weight: 600; }
+    .result { margin-top: 34px; padding: 24px; border-left: 3px solid var(--lime); background: var(--panel-2); }
+    .criterion { background: var(--cream); color: #162016; }
+    .criterion .eyebrow { color: #45651f; }
+    .criterion .lead, .criterion p { color: #344134; }
+    .criterion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px, 7vw, 90px); }
+    .not-list { margin: 28px 0; padding: 0; list-style: none; }
+    .not-list li { padding: 10px 0 10px 26px; position: relative; border-bottom: 1px solid #cbd0c5; }
+    .not-list li::before { content: "—"; color: #4d6f25; font-weight: 700; position: absolute; left: 0; }
+    .independence { padding: clamp(28px, 4vw, 50px); background: #182118; color: var(--cream); align-self: stretch; }
+    .independence p { color: #d8ddd4; }
+    .independence strong { color: var(--lime); }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(38px, 7vw, 90px); }
+    .module-lines { margin-top: 36px; border-top: 1px solid var(--line); }
+    .module-lines p { margin: 0; padding: 18px 0; border-bottom: 1px solid var(--line); }
+    .comparison { display: grid; gap: 16px; }
+    .comparison p { margin: 0; padding: 22px; border: 1px solid var(--line); }
+    .comparison p:last-child { border-color: var(--lime); color: var(--cream); background: var(--panel-2); font-weight: 700; }
+    .offer { background: var(--panel); }
+    .offer-box { border: 1px solid #6f963e; padding: clamp(30px, 6vw, 72px); }
+    .offer-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: clamp(42px, 7vw, 100px); }
+    .includes { display: grid; gap: 28px; }
+    .includes > div { padding-bottom: 22px; border-bottom: 1px solid var(--line); }
+    .includes h3 { margin-bottom: 6px; }
+    .checkout { padding: 34px; background: var(--lime); color: var(--lime-dark); align-self: start; }
+    .checkout .eyebrow { color: #31451c; }
+    .big-price { font-size: clamp(2.3rem, 4vw, 4rem); line-height: 1; letter-spacing: -.05em; font-weight: 600; margin: 16px 0 8px; }
+    .checkout .cta { width: 100%; background: var(--ink); color: var(--cream); border-color: var(--ink); margin-top: 20px; }
+    .checkout small { display: block; margin-top: 15px; line-height: 1.5; }
+    .guarantee { max-width: 900px; margin-inline: auto; text-align: center; }
+    .guarantee h2 { margin-inline: auto; }
+    .guarantee-card { margin-top: 48px; border: 1px solid var(--lime); padding: clamp(28px, 5vw, 54px); text-align: left; }
+    .guarantee-card strong { font-size: clamp(1.25rem, 2vw, 1.7rem); color: var(--lime); }
+    .final { padding-block: clamp(100px, 14vw, 180px); }
+    .final h2 { max-width: 1000px; }
+    .final-question { margin: 46px 0; padding: 28px 0; border-block: 1px solid var(--line); font-size: clamp(1.3rem, 2.4vw, 2rem); font-weight: 600; }
+    footer { border-top: 1px solid var(--line); padding-block: 28px; color: var(--muted); font-size: .76rem; display: flex; justify-content: space-between; gap: 20px; }
+    @media (max-width: 860px) {
+      .hero, .split, .criterion-grid, .two-col, .offer-grid { grid-template-columns: 1fr; }
+      .hero { min-height: auto; }
+      .hero-copy { order: 1; }
+      .mockup { order: 2; max-width: 620px; }
+      .decision-cloud { grid-template-columns: 1fr 1fr; }
+      .context-list { grid-template-columns: 1fr; }
+      .checkout { max-width: 520px; }
+    }
+    @media (max-width: 560px) {
+      .topnote { display: none; }
+      h1 { font-size: clamp(2.55rem, 13vw, 4rem); }
+      .decision-cloud { grid-template-columns: 1fr; }
+      .buyrow { align-items: stretch; flex-direction: column; }
+      .cta { width: 100%; }
+      .mockup { padding: 18px; box-shadow: 10px 10px 0 #0b0f0c; }
+      .section { padding-block: 78px; }
+      footer { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .cta { transition: none; }
+    }
+  </style>
 </head>
 <body>
-<main class="landing-page">
-      <header class="site-header">
-        <a class="wordmark" href="#inicio" aria-label="Consultor de Bolsillo">
-          <span class="wordmark-dot" ></span>
-          <span>Consultor de<br /><b>Bolsillo</b></span>
-        </a>
-      </header>
+  <header class="shell topbar">
+    <div class="brand"><span class="brandmark">CB</span> CONSULTOR DE BOLSILLO</div>
+  </header>
 
-      <section class="hero section-dark" id="inicio">
-        <div class="hero-grid shell">
-          <div class="hero-copy">
-            <p class="section-kicker">01</p>
-            <h1>Ya sabes qué necesitas hacer.</h1>
-            <h2>Ahora no tienes que tomar solo las decisiones para hacerlo realidad.</h2>
-            <div class="hero-rule" ></div>
-            <p>Tu diagnóstico te mostró qué necesita cambiar en tu negocio.</p>
-            <p>Pero ahora empiezan las decisiones.</p>
-            <div class="hero-questions">
-              <p>¿Cómo conviertes tus servicios en una oferta?</p>
-              <p>¿Cuánto cobras?</p>
-              <p>¿A quién te diriges?</p>
-              <p>¿Qué dices para iniciar una conversación?</p>
-              <p>¿Qué respondes si un prospecto pide descuento?</p>
-              <p>¿Vale la pena pagar esa campaña?</p>
-              <p>¿Sigues insistiendo o cambias de estrategia?</p>
-            </div>
-            <p class="hero-emphasis">No tienes que resolver todo eso solo.</p>
-          </div>
-          <div class="hero-side">
-            <div class="mockup" aria-label="Mockup de Consultor de Bolsillo"><div class="mockup-topbar"><div class="mockup-brandmark" aria-hidden="true"><span></span><span></span><span></span></div><span>Consultor de Bolsillo</span><span class="mockup-status">●</span></div><div class="mockup-body"><div class="mockup-intro"><span>Consultor de Bolsillo</span><p>Ya tienes una dirección.</p></div><div class="mockup-question"><span class="mockup-index">01</span><p>“Me pidieron un descuento. ¿Qué hago?”</p></div><div class="mockup-analysis"><div class="analysis-line"></div><div><span class="mockup-label">Primero entiende qué está pasando.</span><strong>Qué conviene resolver.</strong></div></div><div class="mockup-tool"><div class="tool-arrow">↘</div><div><span class="mockup-label">Después</span><strong>la herramienta adecuada para hacerlo</strong></div></div></div><div class="mockup-bottom"><span>dirección</span><span class="mockup-progress"><i></i><i></i><i></i><i></i></span></div></div>
-            <p class="hero-support">Consultor de Bolsillo conoce tu negocio, entiende lo que quieres conseguir y te ayuda a tomar las decisiones que aparecen mientras lo haces crecer.</p>
-            <div class="hero-buy">
-              <strong>$990 MXN al mes</strong>
-              <a class="checkout-button" href="https://pay.hotmart.com/P107758424Q"><span>QUIERO MI CONSULTOR DE BOLSILLO</span><span class="arrow" aria-hidden="true">↗</span></a>
-            </div>
-          </div>
+  <main>
+    <section class="shell hero">
+      <div class="hero-copy">
+        <h1>Ya sabes qué necesitas hacer. <span class="accent">Ahora no tienes que tomar por tu cuenta las decisiones para hacerlo realidad.</span></h1>
+        <p>Tu diagnóstico te mostró qué conviene hacer en tu negocio.</p>
+        <p>Pero ahora empiezan las decisiones.</p>
+        <div class="questions" aria-label="Decisiones frecuentes">
+          <span>¿Cómo conviertes tus servicios en una oferta?</span>
+          <span>¿Cuánto cobras?</span>
+          <span>¿A quién te diriges?</span>
+          <span>¿Qué dices para iniciar una conversación?</span>
+          <span>¿Qué respondes si un prospecto pide descuento?</span>
+          <span>¿Vale la pena pagar una campaña?</span>
+          <span>¿Sigues insistiendo o cambias de estrategia?</span>
         </div>
-      </section>
-
-      <section class="direction section-cream">
-        <div class="shell direction-grid">
-          <div class="direction-heading">
-            <p class="section-kicker">02</p>
-            <h2>Tu diagnóstico te dio una dirección.</h2>
-            <p class="display-subhead">Consultor de Bolsillo te acompaña en las decisiones que vienen después.</p>
-          </div>
-          <div class="direction-content">
-            <p>Porque una cosa es saber que necesitas conseguir clientes sin depender únicamente de recomendaciones.</p>
-            <p class="large-italic">Otra es decidir <strong>cómo hacerlo.</strong></p>
-            <div class="decision-list">
-              <span>Qué ofrecer.</span>
-              <span>A quién.</span>
-              <span>Qué decir.</span>
-              <span>Qué publicar.</span>
-              <span>Dónde invertir.</span>
-              <span>Qué oportunidad perseguir.</span>
-              <span>Qué propuesta aceptar.</span>
-              <span>Qué responder.</span>
-              <span>Cuándo insistir.</span>
-              <span>Cuándo cambiar.</span>
-              <span>Y qué hacer después.</span>
-            </div>
-            <p class="closing-line">Cada una parece una decisión pequeña.<br />Juntas determinan hacia dónde va tu negocio.</p>
-            <p class="pull-quote">Consultor de Bolsillo existe para que no tengas que tomarlas solo.</p>
-          </div>
+        <p class="hero-claim">No tienes que resolver todo eso por tu cuenta.</p>
+        <p>Consultor de Bolsillo conoce tu negocio, entiende lo que quieres conseguir, identifica qué corresponde hacer y te da las herramientas para llevarlo a la práctica.</p>
+        <div class="buyrow">
+          <span class="price">$990 MXN al mes</span>
+          <a class="cta js-checkout" href="https://buy.stripe.com/6oUeVcaqg4tT0KDeGygbm0l">QUIERO MI CONSULTOR DE BOLSILLO</a>
         </div>
-      </section>
+      </div>
 
-      <section class="consult section-dark">
-        <div class="shell">
-          <div class="consult-heading">
-            <p class="section-kicker">03</p>
-            <h2>Cuando no sepas qué hacer, tienes a quién consultar.</h2>
-          </div>
-          <div class="consult-grid">
-            <div class="consult-context">
-              <p>Consultor de Bolsillo primero conoce tu negocio.</p>
-              <div class="context-list">
-                <span>Qué vendes.</span>
-                <span>A quién atiendes.</span>
-                <span>Qué problema resuelves.</span>
-                <span>Qué quieres conseguir.</span>
-                <span>Con cuánto tiempo y recursos cuentas.</span>
-                <span>Y qué puedes ejecutar realmente.</span>
-              </div>
-              <p class="muted-copy">Así, cuando llegas con una situación, no empiezas desde cero.</p>
-            </div>
-            <div class="question-stack">
-              <p>Puedes llegar con preguntas como:</p>
-              <blockquote>“Me pidieron un descuento. ¿Qué hago?”</blockquote>
-              <blockquote>“Mandé la propuesta y no me han contestado.”</blockquote>
-              <blockquote>“Quiero empezar a buscar clientes. ¿A quién debería contactar?”</blockquote>
-              <blockquote>“No sé cómo explicar lo que hago.”</blockquote>
-              <blockquote>“Estoy pensando pagar esta campaña. ¿Tiene sentido?”</blockquote>
-              <blockquote>“Este cliente me está pidiendo algo fuera del alcance.”</blockquote>
-              <blockquote>“Tengo tres ideas. ¿Qué conviene trabajar primero?”</blockquote>
-            </div>
-          </div>
-          <p class="consult-footer">Consultor de Bolsillo analiza la situación desde la dirección de tu negocio, identifica qué necesitas resolver y te ayuda a llevar esa decisión a la práctica.</p>
+      <div class="mockup" role="img" aria-label="Ejemplo de una consulta y la dirección entregada por Consultor de Bolsillo">
+        <p class="mock-question">“Mandé la propuesta y no me han contestado. ¿Qué hago?”</p>
+        <div class="mock-grid">
+          <div class="mock-step"><span class="num">01</span><span><b>Entiende la situación</b>Qué se acordó, cuánto tiempo pasó y qué señales existen.</span></div>
+          <div class="mock-step active"><span class="num">02</span><span><b>Identifica la decisión</b>Determina si corresponde dar seguimiento, esperar o cerrar.</span></div>
+          <div class="mock-step"><span class="num">03</span><span><b>Te ayuda a hacerlo</b>Prepara contigo qué decir y cuál será el siguiente paso.</span></div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="criterion section-lime">
-        <div class="shell">
-          <div class="criterion-heading">
-            <p class="section-kicker">04</p>
-            <h2>No se trata de darte una respuesta. Se trata de saber qué conviene hacer.</h2>
-          </div>
-          <div class="criterion-intro">
-            <p>El criterio de Consultor de Bolsillo está construido a partir de <strong>más de 20 años de experiencia de Beatriz Morales Gil de la Torre tomando decisiones de mercadotecnia y negocio, dirigiendo equipos y acompañando a consultores y profesionales independientes.</strong></p>
+    <section class="section">
+      <div class="shell">
+        <p class="eyebrow">Dirección + decisiones</p>
+        <h2>Tu diagnóstico te dio una dirección. <span class="accent">Consultor de Bolsillo te acompaña en las decisiones que vienen después.</span></h2>
+        <p class="lead">Porque una cosa es saber que necesitas conseguir clientes sin depender únicamente de recomendaciones. Otra es decidir <strong>cómo hacerlo.</strong></p>
+        <div class="decision-cloud" aria-label="Decisiones de negocio">
+          <span>Qué ofrecer.</span><span>A quién.</span><span>Qué decir.</span>
+          <span>Qué publicar.</span><span>Dónde invertir.</span><span>Qué oportunidad perseguir.</span>
+          <span>Qué propuesta aceptar.</span><span>Qué responder.</span><span>Cuándo insistir.</span>
+          <span>Cuándo cambiar.</span><span>Y qué hacer después.</span>
+        </div>
+        <p class="statement">Cada una parece una decisión pequeña. Juntas determinan hacia dónde va tu negocio.</p>
+        <p class="statement accent">Consultor de Bolsillo existe para que no tengas que tomarlas por tu cuenta.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell split">
+        <div>
+          <p class="eyebrow">No empiezas desde cero</p>
+          <h2>Cuando no sepas qué hacer, tienes a quién consultar.</h2>
+          <p>Consultor de Bolsillo primero conoce tu negocio.</p>
+          <ul class="context-list">
+            <li>Qué vendes.</li><li>A quién atiendes.</li><li>Qué problema resuelves.</li><li>Qué quieres conseguir.</li><li>Con cuánto tiempo y recursos cuentas.</li><li>Y qué puedes ejecutar realmente.</li>
+          </ul>
+          <p class="result">Así, cuando llegas con una situación, no empiezas desde cero.</p>
+        </div>
+        <div class="quote-list">
+          <div class="quote">“Me pidieron un descuento. ¿Qué hago?”</div>
+          <div class="quote">“Mandé la propuesta y no me han contestado.”</div>
+          <div class="quote">“Quiero empezar a buscar clientes. ¿A quién debería contactar?”</div>
+          <div class="quote">“No sé cómo explicar lo que hago.”</div>
+          <div class="quote">“Estoy pensando pagar esta campaña. ¿Me conviene?”</div>
+          <div class="quote">“Este cliente me está pidiendo algo fuera del alcance.”</div>
+          <div class="quote">“Tengo tres ideas. ¿Qué conviene trabajar primero?”</div>
+          <p class="result">Consultor de Bolsillo analiza la situación desde la dirección de tu negocio, identifica qué necesitas resolver, te explica qué corresponde hacer y te da las herramientas para llevar esa decisión a la práctica.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section criterion">
+      <div class="shell">
+        <p class="eyebrow">De dónde sale el criterio</p>
+        <h2>No se trata de darte una respuesta. Se trata de saber qué conviene hacer.</h2>
+        <div class="criterion-grid">
+          <div>
+            <p class="lead">El criterio de Consultor de Bolsillo está construido a partir de <strong>más de 20 años de experiencia de Beatriz Morales Gil de la Torre tomando decisiones de mercadotecnia y negocio, dirigiendo equipos y acompañando a consultores y profesionales independientes.</strong></p>
             <p>Esa experiencia está incorporada en las preguntas que hace, el orden en el que analiza una situación y las recomendaciones que entrega.</p>
+            <p>Por eso no asume que necesitas:</p>
+            <ul class="not-list">
+              <li>Publicar más.</li><li>Contratar una campaña.</li><li>Comprar otra herramienta.</li><li>Seguir una estrategia únicamente porque otros la están usando.</li>
+            </ul>
+            <p><strong>Primero entiende qué está pasando.</strong></p>
+            <p>Después identifica qué conviene resolver. Y también qué <strong>todavía no necesitas hacer.</strong></p>
+            <p>La tecnología permite aplicar ese criterio con rapidez cada vez que lo necesitas. Pero el criterio viene de la experiencia.</p>
           </div>
-          <div class="criterion-columns">
-            <div>
-              <p>Por eso no asume que necesitas publicar más.</p>
-              <p>Ni que necesitas contratar una campaña.</p>
-              <p>Ni comprar otra herramienta.</p>
-              <p>Ni seguir una estrategia solo porque otros la están usando.</p>
-            </div>
-            <div class="criterion-highlight">
-              <p><strong>Primero entiende qué está pasando.</strong></p>
-              <p>Después identifica qué conviene resolver.</p>
-              <p>Y también qué <strong>todavía no necesitas hacer.</strong></p>
-            </div>
-          </div>
-          <div class="technology-note">
-            <p>La tecnología permite aplicar ese criterio con rapidez cada vez que lo necesitas.</p>
-            <p>Pero el criterio viene de la experiencia.</p>
-          </div>
-          <div class="recommendation">
-            <p>Y hay algo más:</p>
-            <p><strong>La recomendación no depende de venderte la siguiente solución. Depende de lo que tu negocio necesita.</strong></p>
-            <div class="no-commission-grid">
-              <span>No gano una comisión si contratas una campaña.</span>
-              <span>No gano si eliges una plataforma.</span>
-              <span>No gano si contratas a un proveedor.</span>
-              <span>Y tampoco gano más si la recomendación es que gastes más.</span>
-            </div>
-            <p class="recommendation-end">La única función de Consultor de Bolsillo es ayudarte a decidir qué tiene sentido para tu negocio y qué no.</p>
+          <div class="independence">
+            <p class="eyebrow">Criterio independiente</p>
+            <h3>La recomendación no depende de venderte la siguiente solución. Depende de lo que tu negocio necesita.</h3>
+            <p>No gano una comisión si contratas una campaña.</p>
+            <p>No gano si eliges una plataforma.</p>
+            <p>No gano si contratas a un proveedor.</p>
+            <p>Y tampoco gano más si la recomendación es que inviertas más.</p>
+            <p><strong>La función de Consultor de Bolsillo es ayudarte a decidir qué corresponde hacer para tu negocio y qué no.</strong></p>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="not-course section-cream">
-        <div class="shell not-course-grid">
-          <div class="not-course-heading">
-            <p class="section-kicker">05</p>
-            <h2>No necesitas saber todas las respuestas.</h2>
-            <p class="display-subhead">Necesitas tener a quién consultar cuando las necesites.</p>
-          </div>
-          <div class="not-course-body">
+    <section class="section">
+      <div class="shell two-col">
+        <div>
+          <p class="eyebrow">Ayuda cuando la necesitas</p>
+          <h2>No necesitas pagar o estudiar por cada decisión que quieres tomar.</h2>
+          <h3 class="accent">Necesitas tener a quién consultar al mismo ritmo que vive tu negocio.</h3>
+          <div class="module-lines">
             <p>Algunas decisiones requieren trabajar tu oferta.</p>
             <p>Otras, entender mejor a quién dirigirte.</p>
             <p>Preparar un mensaje.</p>
             <p>Crear contenido.</p>
             <p>Evaluar una alternativa de crecimiento.</p>
             <p>O decidir qué responder en una conversación comercial.</p>
-            <p class="body-lead">Consultor de Bolsillo identifica qué necesitas resolver y te lleva a la herramienta adecuada para hacerlo.</p>
-            <p>Y si aparece una situación que todavía no está contemplada, tienes una comunidad donde plantearla.</p>
-            <p>No necesitas convertirte en experto en mercadotecnia, ventas y estrategia para hacer crecer tu negocio.</p>
-            <p class="pull-quote dark-quote">Tú llevas el negocio. No tienes que pensar cada decisión solo.</p>
           </div>
+          <p class="result">Consultor de Bolsillo identifica qué necesitas resolver y te da la herramienta adecuada para hacerlo.</p>
+          <p>Y si aparece una situación que todavía no está contemplada, tienes una comunidad donde plantearla.</p>
+          <p><strong>No necesitas convertirte en experto en mercadotecnia, ventas y estrategia para hacer crecer tu negocio.</strong></p>
+          <p class="accent"><strong>Tú llevas el negocio. No tienes que pensar cada decisión por tu cuenta.</strong></p>
         </div>
-        <div class="course-contrast">
-          <div class="shell course-grid">
-            <div>
-              <p class="section-kicker">Por eso no es un curso.</p>
-              <p>Un curso intenta prepararte hoy para las preguntas que tendrás mañana.</p>
-              <p>Consultor de Bolsillo funciona al revés.</p>
-              <p class="pull-quote cream-quote">Cuando aparece la pregunta, consultas.</p>
-            </div>
-            <div class="timeline">
-              <div><span>Hoy puede ser:</span><strong>“¿Cuánto debería cobrar?”</strong></div>
-              <div><span>Mañana:</span><strong>“¿Qué le respondo a este prospecto?”</strong></div>
-              <div><span>Después:</span><strong>“¿Vale la pena invertir en esto?”</strong></div>
-              <div><span>Más adelante:</span><strong>“Esto no está funcionando. ¿Qué cambio?”</strong></div>
-            </div>
+        <div>
+          <p class="eyebrow">No es una biblioteca</p>
+          <h2>Por eso no es un curso ni un entrenamiento.</h2>
+          <p>Un curso o un entrenamiento intenta prepararte hoy para las preguntas que tendrás mañana.</p>
+          <p>Consultor de Bolsillo funciona al revés.</p>
+          <p class="statement accent">Cuando aparece la pregunta, consultas. Te dice qué hacer, cómo hacerlo y por qué, desde la experiencia.</p>
+          <div class="comparison">
+            <p>Hoy puede ser: “¿Cuánto debería cobrar?”</p>
+            <p>Mañana: “¿Qué le respondo a este prospecto?”</p>
+            <p>Después: “¿Vale la pena invertir en esto?”</p>
+            <p>Más adelante: “Esto no está funcionando. ¿Qué cambio?”</p>
+            <p>Un curso se termina. Una plantilla se descarga. Las decisiones de tu negocio no se terminan.</p>
           </div>
-          <div class="shell course-bottom">
-            <p>Un curso se termina.</p>
-            <p>Una plantilla se descarga.</p>
-            <p class="pull-quote cream-quote">Las decisiones de tu negocio no se terminan.</p>
-            <p>Por eso no pagas por entrar a una biblioteca de contenido.</p>
-            <p class="large-final">Pagas por tener a quién consultar cada vez que necesitas tomar una decisión sobre tu negocio.</p>
-          </div>
+          <p class="result"><strong>No pagas por entrar a una biblioteca de contenido. Pagas por tener a quién consultar cada vez que necesitas tomar una decisión sobre tu negocio y las herramientas para llevarla a la práctica.</strong></p>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="membership section-dark">
-        <div class="shell membership-grid">
-          <div class="membership-heading">
-            <p class="section-kicker">06</p>
-            <h2>Ten tu Consultor de Bolsillo.</h2>
-            <p class="display-subhead">Un consultor que conoce la dirección de tu negocio, identifica qué necesitas resolver y te ayuda a llevar cada decisión a la práctica.</p>
+    <section class="section offer" id="contratar">
+      <div class="shell offer-box">
+        <p class="eyebrow">Una sola membresía</p>
+        <h2>Ten tu Consultor de Bolsillo.</h2>
+        <p class="lead">Un consultor que conoce la dirección de tu negocio, identifica qué necesitas resolver y te da las herramientas para llevar cada decisión a la práctica.</p>
+        <div class="offer-grid">
+          <div class="includes">
+            <div><h3>Dirección para tu negocio.</h3><p>Para que dejes de tomar decisiones de manera aislada y, tal vez, en desorden. Porque cuando se trata de hacer negocio, el orden de los factores sí altera el resultado.</p></div>
+            <div><h3>Herramientas especializadas.</h3><p>Para trabajar tu oferta, tus clientes, tu comunicación, tu contenido y tus alternativas de crecimiento.</p></div>
+            <div><h3>Ayuda con tus conversaciones comerciales.</h3><p>Para interpretar lo que está pasando y decidir qué responder.</p></div>
+            <div><h3>Una comunidad para situaciones nuevas.</h3><p>Porque habrá preguntas que todavía no podemos anticipar.</p></div>
           </div>
-          <div class="membership-includes">
-            <p class="eyebrow-light">Tu membresía incluye:</p>
-            <div class="include-item"><span class="check" aria-hidden="true">✓</span><div><strong>Dirección para tu negocio.</strong><p>Para que las decisiones no se tomen de forma aislada.</p></div></div>
-            <div class="include-item"><span class="check" aria-hidden="true">✓</span><div><strong>Herramientas especializadas.</strong><p>Para trabajar tu oferta, tus clientes, tu comunicación, tu contenido y tus alternativas de crecimiento.</p></div></div>
-            <div class="include-item"><span class="check" aria-hidden="true">✓</span><div><strong>Ayuda con tus conversaciones comerciales.</strong><p>Para interpretar lo que está pasando y decidir qué responder.</p></div></div>
-            <div class="include-item"><span class="check" aria-hidden="true">✓</span><div><strong>Una comunidad para situaciones nuevas.</strong><p>Porque habrá preguntas que todavía no podemos anticipar.</p></div></div>
-          </div>
+          <aside class="checkout">
+            <p class="eyebrow">Consultor de Bolsillo</p>
+            <div class="big-price">$990 MXN</div>
+            <p>al mes</p>
+            <p><strong>Sin contrato anual.</strong><br>Puedes cancelar la membresía.</p>
+            <a class="cta js-checkout" href="https://buy.stripe.com/6oUeVcaqg4tT0KDeGygbm0l">QUIERO MI CONSULTOR DE BOLSILLO</a>
+          </aside>
         </div>
-        <div class="shell membership-buy">
-          <div>
-            <strong>$990 MXN al mes</strong>
-            <p>Sin contrato anual.</p>
-            <p>Puedes cancelar la membresía.</p>
-          </div>
-          <a class="checkout-button checkout-button--inverted" href="https://pay.hotmart.com/P107758424Q"><span>QUIERO MI CONSULTOR DE BOLSILLO</span><span class="arrow" aria-hidden="true">↗</span></a>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="guarantee section-cream">
-        <div class="shell guarantee-grid">
-          <div>
-            <p class="section-kicker">07</p>
-            <h2>No tienes que decidirlo basándote únicamente en esta página.</h2>
-            <p class="display-subhead">Pruébalo con una decisión real de tu negocio.</p>
-          </div>
-          <div class="guarantee-steps">
-            <p>Entra.</p>
-            <p>Dale el contexto de tu negocio.</p>
-            <p>Obtén una dirección.</p>
-            <p>Y llévale una decisión que tengas pendiente.</p>
-          </div>
-        </div>
-        <div class="shell guarantee-callout">
-          <div class="guarantee-mark">7</div>
+    <section class="section">
+      <div class="shell guarantee">
+        <p class="eyebrow">Compruébalo con tu negocio</p>
+        <h2>No tienes que decidirlo basándote únicamente en lo que te estoy diciendo aquí.</h2>
+        <h3 class="accent">Pruébalo con una decisión de tu negocio.</h3>
+        <div class="guarantee-card">
+          <p>Entra y llévale esa decisión que te da vueltas en la cabeza.</p>
           <p><strong>Tienes 7 días para comprobar si Consultor de Bolsillo te ayuda a entender qué hacer y cómo hacerlo.</strong></p>
           <p>Si no lo hace, puedes solicitar la devolución de tu dinero dentro de esos primeros siete días.</p>
-          <p>Sin tener que quedarte meses para descubrir si te sirve.</p>
+          <p>Sin tener que quedarte meses para descubrir si te sirve ni darte cuenta, después de haber pagado mucho, de que eso no era lo que necesitabas.</p>
+          <p><strong>$990 MXN al mes. 7 días para comprobarlo con tu propio negocio.</strong></p>
+          <a class="cta js-checkout" href="https://buy.stripe.com/6oUeVcaqg4tT0KDeGygbm0l">QUIERO MI CONSULTOR DE BOLSILLO</a>
         </div>
-        <div class="shell guarantee-price">
-          <strong>$990 MXN al mes.</strong>
-          <strong>7 días para comprobarlo con tu propio negocio.</strong>
-          <a class="checkout-button" href="https://pay.hotmart.com/P107758424Q"><span>QUIERO MI CONSULTOR DE BOLSILLO</span><span class="arrow" aria-hidden="true">↗</span></a>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="closing section-dark" id="contratar">
-        <div class="shell closing-inner">
-          <p class="section-kicker">08</p>
-          <h2>Ya tienes una dirección.</h2>
-          <p class="display-subhead">Ahora ten a quién consultar en el camino.</p>
-          <div class="closing-copy">
-            <p>Tu diagnóstico te mostró qué necesitas hacer.</p>
-            <p>A partir de aquí vendrán decisiones que hoy ni siquiera puedes anticipar.</p>
-            <p>Algunas serán pequeñas.</p>
-            <p>Otras pueden cambiar lo que vendes, cuánto cobras, dónde inviertes o cómo consigues a tu próximo cliente.</p>
-            <p>Puedes seguir tomando cada una por tu cuenta.</p>
-            <p>O puedes tener a quién preguntarle:</p>
-            <p class="pull-quote">“Esto es lo que está pasando. ¿Qué conviene hacer?”</p>
-            <p>Eso es Consultor de Bolsillo.</p>
-            <p>No alguien que decide por ti.</p>
-            <p class="closing-final">Alguien que te ayuda a no tener que decidir solo.</p>
-          </div>
-          <div class="closing-buy">
-            <strong>$990 MXN al mes</strong>
-            <a class="checkout-button checkout-button--inverted" href="https://pay.hotmart.com/P107758424Q"><span>QUIERO MI CONSULTOR DE BOLSILLO</span><span class="arrow" aria-hidden="true">↗</span></a>
-          </div>
-        </div>
-      </section>
+    <section class="shell final">
+      <p class="eyebrow">Decisiones con dirección</p>
+      <h2>Ya tienes una dirección. <span class="accent">Ahora ten a quién consultar en el camino.</span></h2>
+      <p class="lead">Tu diagnóstico te mostró qué necesitas hacer.</p>
+      <p>A partir de aquí vendrán decisiones que hoy ni siquiera puedes anticipar.</p>
+      <p>Algunas serán pequeñas.</p>
+      <p>Otras pueden cambiar lo que vendes, cuánto cobras, en qué inviertes o cómo consigues a tu próximo cliente.</p>
+      <p>Puedes seguir tomando cada una por tu cuenta.</p>
+      <p>O puedes tener a quién preguntarle:</p>
+      <p class="final-question">“Esto es lo que está pasando. ¿Qué conviene hacer?”</p>
+      <p class="statement">Eso es Consultor de Bolsillo.</p>
+      <p class="statement"><strong>NO</strong> alguien que decide por ti. <span class="accent">Alguien que te ayuda a dejar de decidir tú solo y por tu cuenta, a saber qué hacer y a tener cómo hacerlo.</span></p>
+      <div class="buyrow">
+        <span class="price">$990 MXN al mes</span>
+        <a class="cta js-checkout" href="https://buy.stripe.com/6oUeVcaqg4tT0KDeGygbm0l">QUIERO MI CONSULTOR DE BOLSILLO</a>
+      </div>
+    </section>
+  </main>
 
-      <footer class="site-footer section-dark">
-        <div class="shell"><span>Consultor de Bolsillo</span></div>
-      </footer>
-    </main>
+  <footer class="shell">
+    <span>© 2026 Consultor de Bolsillo</span>
+    <span>Decisiones claras para consultores y profesionales independientes.</span>
+  </footer>
+
+  <script>
+    const CHECKOUT_URL = "https://buy.stripe.com/6oUeVcaqg4tT0KDeGygbm0l";
+    document.querySelectorAll(".js-checkout").forEach((link) => {
+      link.href = CHECKOUT_URL;
+    });
+  </script>
 </body>
 </html>
