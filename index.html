@@ -41,7 +41,7 @@
     .brand { display: flex; align-items: center; gap: 10px; font-size: .78rem; font-weight: 700; letter-spacing: .02em; }
     .brandmark { width: 24px; height: 24px; border: 1px solid var(--lime); display: grid; place-items: center; color: var(--lime); font-size: .65rem; }
     .topnote { color: var(--muted); font-size: .72rem; text-transform: uppercase; letter-spacing: .11em; }
-    .hero { min-height: calc(100vh - 72px); display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(42px, 7vw, 96px); align-items: center; padding-block: clamp(64px, 10vw, 132px); }
+    .hero { min-height: auto; display: grid; grid-template-columns: 1fr; gap: clamp(42px, 7vw, 96px); align-items: center; padding-block: clamp(64px, 10vw, 132px); }
     h1, h2, h3, p { margin-top: 0; }
     h1 { max-width: 760px; font-size: clamp(2.8rem, 6.1vw, 5.6rem); line-height: .98; letter-spacing: -.055em; font-weight: 500; margin-bottom: 32px; }
     h2 { font-size: clamp(2rem, 4vw, 4rem); line-height: 1.05; letter-spacing: -.045em; font-weight: 500; margin-bottom: 30px; max-width: 900px; }
@@ -66,6 +66,7 @@
     .mock-step b { display: block; font-size: .76rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 4px; }
     .mock-step span:last-child { color: #c7d0c3; font-size: .82rem; line-height: 1.45; }
     .section { padding-block: clamp(86px, 11vw, 150px); border-top: 1px solid var(--line); }
+    .video-intro { margin-top: 42px; }
     .video-embed { width: 100%; max-width: 960px; aspect-ratio: 16 / 9; margin: 36px auto 0; }
     .video-embed iframe { display: block; width: 100%; height: 100%; border: 0; }
     .lead { font-size: clamp(1.15rem, 1.8vw, 1.45rem); max-width: 840px; color: #d6dbd2; }
@@ -160,29 +161,18 @@
         </div>
         <p class="hero-claim">No tienes que resolver todo eso por tu cuenta.</p>
         <p>Consultor de Bolsillo conoce tu negocio, entiende lo que quieres conseguir, identifica qué corresponde hacer y te da las herramientas para llevarlo a la práctica.</p>
+        <div class="video-intro">
+          <h2>Así funciona Consultor de Bolsillo.</h2>
+          <div class="video-embed">
+            <iframe src="https://www.youtube.com/embed/RBmm29Tq_zI" title="Así funciona Consultor de Bolsillo" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>
+        </div>
         <div class="buyrow">
           <span class="price">$990 MXN al mes</span>
           <a class="cta js-checkout" href="https://buy.stripe.com/6oUeVcaqg4tT0KDeGygbm0l">QUIERO MI CONSULTOR DE BOLSILLO</a>
         </div>
       </div>
 
-      <div class="mockup" role="img" aria-label="Ejemplo de una consulta y la dirección entregada por Consultor de Bolsillo">
-        <p class="mock-question">“Mandé la propuesta y no me han contestado. ¿Qué hago?”</p>
-        <div class="mock-grid">
-          <div class="mock-step"><span class="num">01</span><span><b>Entiende la situación</b>Qué se acordó, cuánto tiempo pasó y qué señales existen.</span></div>
-          <div class="mock-step active"><span class="num">02</span><span><b>Identifica la decisión</b>Determina si corresponde dar seguimiento, esperar o cerrar.</span></div>
-          <div class="mock-step"><span class="num">03</span><span><b>Te ayuda a hacerlo</b>Prepara contigo qué decir y cuál será el siguiente paso.</span></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="shell">
-        <h2>Así funciona Consultor de Bolsillo.</h2>
-        <div class="video-embed">
-          <iframe src="https://www.youtube.com/embed/RBmm29Tq_zI" title="Así funciona Consultor de Bolsillo" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        </div>
-      </div>
     </section>
 
     <section class="section">
